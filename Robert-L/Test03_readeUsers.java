@@ -1,31 +1,24 @@
 package se2.day08;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 import se2.day08.entity.User;
 
-/*
- * 从HFS下载user.dat，并反序列化该文件。
- */
-public class Test04 {
+public class Test03_readeUsers {
 	public static void main(String[] args) {
-
+		User[] users;
 		ObjectInputStream ois = null;
 		try {
-			URL url = new URL("http://127.0.0.1/user.dat");
-			URLConnection conn = url.openConnection();
-			InputStream in = conn.getInputStream();
-			ois = new ObjectInputStream(in);
-			User[] users = (User[]) ois.readObject();
+			ois = new ObjectInputStream(new FileInputStream(
+					"E:/java_test/src/user.dat"));
+			users = (User[]) ois.readObject();
 			for (User user : users) {
 				System.out.println(user);
 			}
-		} catch (MalformedURLException e) {
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
